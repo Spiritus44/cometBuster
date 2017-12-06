@@ -27,7 +27,7 @@ list_ptr list_add(sprite_t sprite, list_ptr list)
 int list_length(list_ptr l)
 {
   int taille_liste = 0;
-  while(l->next != NULL){
+  while(l){
     taille_liste++;
     l = l->next;
   }
@@ -87,13 +87,12 @@ sprite_t list_pop_sprite(list_ptr * l)
  * */
 void list_remove(list_ptr elt, list_ptr *l)
 {
-  list_ptr mon_ptr = *l; 
-  while(mon_ptr->next != NULL){ 
-    if(mon_ptr->next == elt){ 
-      mon_ptr->next = elt->next; 
+  while(*l != NULL){
+    if(*l == elt){
+      *l = elt->next;
       list_free(elt);
     }
-    mon_ptr = mon_ptr->next;
+    l = *l;
   }
 }
 
