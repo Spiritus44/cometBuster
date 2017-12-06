@@ -10,3 +10,5 @@ linkedlist\.o
 main\.o
 
 sprite\.o
+
+*.swp

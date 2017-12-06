@@ -7,7 +7,10 @@
  * */
 list_ptr list_new(void)
 {
-  return NULL;
+  list_ptr ma_liste_ptr = malloc(sizeof(struct list_node));
+  ma_liste_ptr->data = NULL;
+  ma_liste_ptr->next = NULL;
+  return ma_liste_ptr;
 }
 
 /* Add a new cel to a list. 
@@ -15,14 +18,22 @@ list_ptr list_new(void)
  * */
 list_ptr list_add(sprite_t sprite, list_ptr list)
 {
-  return NULL;
+  list_ptr ma_liste_ptr = malloc(sizeof(struct list_node));
+  ma_liste_ptr->data = sprite;
+  ma_liste_ptr->next = list;
+  return ma_liste_ptr;
 }
 
 /* Return the length of a list
  * */
 int list_length(list_ptr l)
 {
-  return 0;
+  int taille_liste = 0;
+  while(l->next != NULL){
+    taille_liste++;
+  }
+
+  return taille_liste;
 }
 
 /* Reverse the order of a list
@@ -43,7 +54,10 @@ list_ptr list_clone(list_ptr list)
  * */
 bool list_is_empty(list_ptr l)
 {
-  return true;
+  if(&l == NULL)
+    return false;
+  else
+    return true;
 }
 
 /* Search the first cel of the list & 
@@ -81,4 +95,5 @@ void list_remove(list_ptr elt, list_ptr *l)
  * */
 void list_free(list_ptr l)
 {
+  free(l);
 }
