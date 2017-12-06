@@ -7,10 +7,8 @@
  * */
 list_ptr list_new(void)
 {
-  list_ptr ma_liste_ptr = malloc(sizeof(struct list_node));
-  ma_liste_ptr->data = NULL;
-  ma_liste_ptr->next = NULL;
-  return ma_liste_ptr;
+  list_ptr ma_liste = malloc(sizeof(struct list_node));
+  return ma_liste;
 }
 
 /* Add a new cel to a list. 
@@ -54,7 +52,7 @@ list_ptr list_clone(list_ptr list)
  * */
 bool list_is_empty(list_ptr l)
 {
-  if(&l == NULL)
+  if(l)
     return false;
   else
     return true;
@@ -65,7 +63,7 @@ bool list_is_empty(list_ptr l)
  * */
 sprite_t list_head_sprite(list_ptr l)
 {
-  return NULL;
+  return l->data;
 }
 
 /* Return the next cel in list or NULL
@@ -90,7 +88,7 @@ void list_remove(list_ptr elt, list_ptr *l)
 {
 }
 
-/* Wipe out a list. 
+/* Wipe out a list.
  *  Don't forget to sprite_free() for each sprite
  * */
 void list_free(list_ptr l)
