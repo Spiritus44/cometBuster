@@ -83,7 +83,6 @@ sprite_t list_head_sprite(list_ptr l)
  * */
 list_ptr list_next(list_ptr l)
 {
-
   if(l->next == NULL){
     return NULL;
   }
@@ -114,15 +113,21 @@ sprite_t list_pop_sprite(list_ptr * l)
  * */
 void list_remove(list_ptr elt, list_ptr *l)
 {
-  list_ptr ptr_local = list_new();
-  ptr_local = *l;
-  while(ptr_local->next != NULL){
-    if(ptr_local == elt){
-      ptr_local = elt->next->next;
-//      list_free(elt);
-      break;
+  list_ptr mon_ptr = *l;
+  list_ptr ptr_precedent = NULL;
+
+  if(*l != NULL){
+    if(*l == elt){
+      *l = (*l)->next;
+    }else{
+      while(mon_ptr != elt){
+        ptr_precedent = mon_ptr;
+	mon_ptr = mon_ptr->next;
+      }
+      ptr_precedent->next = mon_ptr->next;
+      sprite_free(mon_ptr->data);
+      free(mon_ptr);
     }
-    ptr_local = ptr_local->next;
   }
 }
 
@@ -132,11 +137,12 @@ void list_remove(list_ptr elt, list_ptr *l)
  * */
 void list_free(list_ptr l)
 {
-  list_ptr mon_ptr = l;
+  list_ptr mon_ptr;
   while(l != NULL){
-    mon_ptr = l;
+    mon_ptr = l->next;
     sprite_free(l->data);
     free(l);
-    l = mon_ptr->next;
+    l = mon_ptr;
   }
+  free(l);
 }
