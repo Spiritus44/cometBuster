@@ -7,8 +7,8 @@
  * */
 list_ptr list_new(void)
 {
-  list_ptr ma_liste = malloc(sizeof(struct list_node));
-  ma_liste->next = NULL;
+  list_ptr ma_liste;
+  ma_liste = NULL;
   return ma_liste;
 }
 
@@ -17,7 +17,8 @@ list_ptr list_new(void)
  * */
 list_ptr list_add(sprite_t sprite, list_ptr list)
 {
-  list_ptr ma_liste_ptr = malloc(sizeof(struct list_node));
+  list_ptr ma_liste_ptr;
+  ma_liste_ptr = malloc(sizeof(struct list_node));
   ma_liste_ptr->data = sprite;
   ma_liste_ptr->next = list;
   return ma_liste_ptr;
@@ -32,7 +33,6 @@ int list_length(list_ptr l)
     taille_liste++;
     l = l->next;
   }
-
   return taille_liste;
 }
 
@@ -55,7 +55,10 @@ void list_reverse(list_ptr * l)
  * */
 list_ptr list_clone(list_ptr list)
 {
-  return NULL;
+  list_ptr ma_liste_ptr = malloc(sizeof(struct list_node));
+  ma_liste_ptr->data = list->data;
+  ma_liste_ptr->next = list->next;
+  return ma_liste_ptr;
 }
 
 /* Return true if the list is empty
@@ -84,10 +87,7 @@ list_ptr list_next(list_ptr l)
   if(l->next == NULL){
     return NULL;
   }
-  else{
-    list_ptr mon_ptr = l->next;
-    return NULL;
-  }
+  else return l->next;
 }
 
 /* Search the last cel of a list 
