@@ -40,6 +40,14 @@ int list_length(list_ptr l)
  * */
 void list_reverse(list_ptr * l)
 {
+  int i = list_length(*l);
+  list_ptr mon_ptr;
+  mon_ptr = *l;
+  while(i != 0){
+    *l = (mon_ptr+i);
+    i--;
+    *l = (*l)->next;
+  }
 }
 
 /* Copy a list to another one. 
@@ -72,7 +80,14 @@ sprite_t list_head_sprite(list_ptr l)
  * */
 list_ptr list_next(list_ptr l)
 {
-  return NULL;
+
+  if(l->next == NULL){
+    return NULL;
+  }
+  else{
+    list_ptr mon_ptr = l->next;
+    return NULL;
+  }
 }
 
 /* Search the last cel of a list 
@@ -117,5 +132,11 @@ void list_remove(list_ptr elt, list_ptr *l)
  * */
 void list_free(list_ptr l)
 {
-  free(l);
+  list_ptr mon_ptr = l;
+  while(l != NULL){
+    mon_ptr = l;
+    sprite_free(l->data);
+    free(l);
+    l = mon_ptr->next;
+  }
 }
