@@ -12,3 +12,5 @@ main\.o
 sprite\.o
 
 *.swp
+
+*.save
