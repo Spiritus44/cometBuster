@@ -84,10 +84,11 @@ sprite_t list_pop_sprite(list_ptr * l)
   sprite_t mon_sprite;
   list_ptr ptr_local = list_new();
   ptr_local = *l;
-  while(ptr_local->next != NULL){
+  while(ptr_local != NULL){
     if(ptr_local->next->next == NULL){
       mon_sprite = ptr_local->data;
       ptr_local->next = NULL;
+      break;
     }
     ptr_local = ptr_local->next;
   }
