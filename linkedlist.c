@@ -8,6 +8,7 @@
 list_ptr list_new(void)
 {
   list_ptr ma_liste = malloc(sizeof(struct list_node));
+  ma_liste->next = NULL;
   return ma_liste;
 }
 
@@ -80,23 +81,37 @@ list_ptr list_next(list_ptr l)
  * */
 sprite_t list_pop_sprite(list_ptr * l)
 {
-  return NULL;
+  sprite_t mon_sprite;
+  list_ptr ptr_local = list_new();
+  ptr_local = *l;
+  while(ptr_local->next != NULL){
+    if(ptr_local->next->next == NULL){
+      mon_sprite = ptr_local->data;
+      ptr_local->next = NULL;
+    }
+    ptr_local = ptr_local->next;
+  }
+  return mon_sprite;
 }
 
 /* Remove the given cel in a list
  * */
 void list_remove(list_ptr elt, list_ptr *l)
 {
-  while(*l != NULL){
-    if(*l == elt){
-      *l = elt->next;
-      list_free(elt);
+  list_ptr ptr_local = list_new();
+  ptr_local = *l;
+  while(ptr_local->next != NULL){
+    if(ptr_local == elt){
+      ptr_local = elt->next->next;
+//      list_free(elt);
+      break;
     }
-    l = *l;
+    ptr_local = ptr_local->next;
   }
 }
 
 /* Wipe out a list.
+
  *  Don't forget to sprite_free() for each sprite
  * */
 void list_free(list_ptr l)
